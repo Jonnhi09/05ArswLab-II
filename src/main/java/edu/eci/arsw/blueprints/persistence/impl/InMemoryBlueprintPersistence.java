@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ import org.springframework.stereotype.Service;
 @Service("InMemory")
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
-    private final Map<Tuple<String, String>, Blueprint> blueprints = new HashMap<>();
+    private final ConcurrentMap<Tuple<String, String>, Blueprint> blueprints = new ConcurrentHashMap<>();
 
     public InMemoryBlueprintPersistence() {
         //load stub data
@@ -51,7 +53,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
     }
 
     @Override
-    public void updateBlueprint(String author, String name, Point p) throws BlueprintPersistenceException {
+    public synchronized void updateBlueprint(String author, String name, Point p) throws BlueprintPersistenceException {
         try {
             getBlueprint(author, name).addPoint(p);
         } catch (BlueprintNotFoundException ex) {

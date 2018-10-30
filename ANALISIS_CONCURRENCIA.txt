@@ -1,0 +1,12 @@
+Parte III
+
+1. Qué condiciones de carrera se podrían presentar?
+    - Al momento de realizar una función que incluya los verbos POST y PUT
+      se podrían presentar condiciones de carrera.
+
+2. Cuales son las respectivas regiones críticas?
+    - En la clase InMemoryBlueprintPersistence en los métodos saveBlueprint
+      y updateBlueprint al momento de agregar un nuevo plano al HashMap 
+      blueprints, por lo que se hace uso de una estructura de datos atómica
+      ConcurrentHashMap, y por último para la actualización de los puntos de
+      un plano, se usa una función syncronized.
