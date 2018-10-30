@@ -41,6 +41,10 @@ public class BlueprintsServices {
         bpp.saveBlueprint(bp);
     }
 
+    public void updateBlueprint(String author, String name, Point p) throws BlueprintPersistenceException {
+        bpp.updateBlueprint(author, name, p);
+    }
+
     /**
      *
      * @return
@@ -59,7 +63,7 @@ public class BlueprintsServices {
     public List<Point> getFilteredBlueprint(String author, String name) throws BlueprintNotFoundException {
         return filter.filterBlueprints(bpp.getBlueprint(author, name));
     }
-    
+
     /**
      *
      * @param author

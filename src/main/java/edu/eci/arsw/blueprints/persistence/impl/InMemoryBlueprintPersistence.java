@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -45,6 +47,15 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
             throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
         } else {
             blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+        }
+    }
+
+    @Override
+    public void updateBlueprint(String author, String name, Point p) throws BlueprintPersistenceException {
+        try {
+            getBlueprint(author, name).addPoint(p);
+        } catch (BlueprintNotFoundException ex) {
+            Logger.getLogger(InMemoryBlueprintPersistence.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

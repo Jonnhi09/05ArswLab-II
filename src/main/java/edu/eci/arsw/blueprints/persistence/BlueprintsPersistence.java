@@ -6,6 +6,7 @@
 package edu.eci.arsw.blueprints.persistence;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.model.Point;
 import java.util.Set;
 
 /**
@@ -21,10 +22,19 @@ public interface BlueprintsPersistence {
      * already exists, or any other low-level persistence error occurs.
      */
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException;
-    
+
     /**
      *
-     * @return all blueprints 
+     * @param author
+     * @param name
+     * @param p
+     * @throws BlueprintPersistenceException
+     */
+    public void updateBlueprint(String author, String name, Point p) throws BlueprintPersistenceException;
+
+    /**
+     *
+     * @return all blueprints
      */
     public Set<Blueprint> getAllBlueprints();
 
